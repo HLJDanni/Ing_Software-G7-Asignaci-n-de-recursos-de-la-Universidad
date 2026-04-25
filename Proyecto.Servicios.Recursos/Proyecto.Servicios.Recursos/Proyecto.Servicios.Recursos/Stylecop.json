@@ -1,0 +1,20 @@
+{
+  "settings": {
+    "documentationRules": {
+      "companyName": "Proyecto Final",
+      "documentExposedElements": true,
+      "documentInternalElements": false
+    },
+    "orderingRules": {
+      "usingDirectivesPlacement": "outsideNamespace",
+      "blankLinesBetweenUsingGroups": "allow"
+    },
+    "indentationRules": {
+      "useTabs": false,
+      "indentationSize": 4
+    },
+    "layoutRules": {
+      "newlineAtEndOfFile": "require"
+    }
+  }
+}
