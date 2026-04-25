@@ -44,13 +44,16 @@ Content-Type: application/json
 
 ### Body
 
+```json
 {
   "user": "usuario",
   "password": "password"
 }
+```
 
 ### Modelo LoginRequest
 
+```csharp
 public class LoginRequest
 {
     public LoginRequest()
@@ -62,7 +65,7 @@ public class LoginRequest
     public string User { get; set; }
     public string Password { get; set; }
 }
-
+```
 ---
 
 ## 📤 Response
@@ -70,7 +73,7 @@ public class LoginRequest
 La respuesta del servicio se devuelve dentro de un objeto genérico RespuestaMensaje<T>.
 
 ### Respuesta exitosa (200 OK)
-
+```json
 {
   "ocurrioError": false,
   "mensajeCliente": "Login exitoso",
@@ -80,9 +83,10 @@ La respuesta del servicio se devuelve dentro de un objeto genérico RespuestaMen
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
   }
 }
-
+```
 ### Modelo LoginResponse
 
+```csharp
 public class LoginResponse
 {
     public LoginResponse()
@@ -92,11 +96,13 @@ public class LoginResponse
 
     public string Token { get; set; }
 }
+```
 
 ---
 
 ### Respuesta con error (401 Unauthorized)
 
+```json
 {
   "ocurrioError": true,
   "mensajeCliente": "Credenciales inválidas",
@@ -104,11 +110,13 @@ public class LoginResponse
   "codigoError": "AUTH001",
   "modelo": null
 }
+```
 
 ---
 
 ## 📦 Modelo genérico de respuesta
 
+```csharp
 public class RespuestaMensaje<T>
 {
     public RespuestaMensaje()
@@ -126,7 +134,7 @@ public class RespuestaMensaje<T>
     public string CodigoError { get; set; }
     public T Modelo { get; set; }
 }
-
+```
 ---
 
 ## 🧪 Pruebas
@@ -139,13 +147,14 @@ El endpoint puede probarse usando herramientas como:
 
 ### Ejemplo con curl
 
+```powershell
 curl -X POST https://localhost:5001/api/auth/login \
 -H "Content-Type: application/json" \
 -d '{
   "user": "usuario",
   "password": "password"
 }'
-
+```
 ---
 
 ## ⚙️ Notas importantes
