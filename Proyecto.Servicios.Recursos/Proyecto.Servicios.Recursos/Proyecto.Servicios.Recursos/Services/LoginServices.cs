@@ -1,5 +1,5 @@
-﻿// <copyright file="LoginServices.cs" company="Proyecto Final">
-// Copyright (c) Proyecto Final. All rights reserved.
+﻿// <copyright file="LoginServices.cs" company="AUREA">
+// Copyright (c) AUREA. All rights reserved.
 // </copyright>
 
 using Proyecto.Servicios.Recursos.Models;
@@ -17,6 +17,7 @@ public class LoginServices
     /// <summary>
     /// Initializes a new instance of the <see cref="LoginServices"/> class.
     /// </summary>
+    /// <param name="jwtService">Servicio JWT.</param>
     public LoginServices(JwtService jwtService)
     {
         this.jwtService = jwtService;
@@ -57,8 +58,6 @@ public class LoginServices
                    "Usuario o contraseña incorrectos");
             return respuesta;
         }
-
-        return respuesta;
     }
 
     private RespuestaMensaje<LoginResponse> GenerarMensajeError(string mensajeCliente, string mensajeTecnico, string codigo = "999")

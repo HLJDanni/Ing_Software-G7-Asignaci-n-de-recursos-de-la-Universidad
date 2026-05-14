@@ -1,17 +1,13 @@
 {
   "settings": {
     "documentationRules": {
-      "companyName": "Proyecto Final",
+      "companyName": "AUREA",
       "documentExposedElements": true,
       "documentInternalElements": false
     },
     "orderingRules": {
       "usingDirectivesPlacement": "outsideNamespace",
       "blankLinesBetweenUsingGroups": "allow"
-    },
-    "indentationRules": {
-      "useTabs": false,
-      "indentationSize": 4
     },
     "layoutRules": {
       "newlineAtEndOfFile": "require"

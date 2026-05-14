@@ -1,5 +1,5 @@
-﻿// <copyright file="RespuestaMensaje{T}.cs" company="Proyecto Final">
-// Copyright (c) Proyecto Final. All rights reserved.
+﻿// <copyright file="RespuestaMensaje{T}.cs" company="AUREA">
+// Copyright (c) AUREA. All rights reserved.
 // </copyright>
 
 namespace Proyecto.Servicios.Recursos.Models

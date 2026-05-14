@@ -1,0 +1,103 @@
+POST https://localhost:7045/api/Login
+Request
+{
+  "user": "string",
+  "password": "string"
+}
+
+Response
+{
+  "ocurrioError": true,
+  "mensajeCliente": "string",
+  "mensajeTecnico": "string",
+  "codigoError": "string",
+  "modelo": {
+    "token": "string"
+  }
+}
+
+GET https://localhost:7045/api/Catalogos/Catedraticos
+Response
+{
+  "ocurrioError": true,
+  "mensajeCliente": "string",
+  "mensajeTecnico": "string",
+  "codigoError": "string",
+  "modelo": [
+    {
+      "id": 0,
+      "nombreCompleto": "string",
+      "correoInstitucional": "string",
+      "activo": true
+    }
+  ]
+}
+
+GET https://localhost:7045/api/Catalogos/Categoria
+Response
+
+{
+  "ocurrioError": true,
+  "mensajeCliente": "string",
+  "mensajeTecnico": "string",
+  "codigoError": "string",
+  "modelo": [
+    {
+      "id": 0,
+      "nombre": "string",
+      "descripcion": "string"
+    }
+  ]
+}
+
+GET https://localhost:7045/api/Catalogos/Curso
+Response
+{
+  "ocurrioError": true,
+  "mensajeCliente": "string",
+  "mensajeTecnico": "string",
+  "codigoError": "string",
+  "modelo": [
+    {
+      "id": 0,
+      "codigo": "string",
+      "nombre": "string",
+      "catedraticoId": 0
+    }
+  ]
+}
+
+GET https://localhost:7045/api/Catalogos/Motivo
+Response
+{
+  "ocurrioError": true,
+  "mensajeCliente": "string",
+  "mensajeTecnico": "string",
+  "codigoError": "string",
+  "modelo": [
+    {
+      "id": 0,
+      "nombre": "string"
+    }
+  ]
+}
+
+GET https://localhost:7045/api/Catalogos/Recurso
+Response
+{
+  "ocurrioError": true,
+  "mensajeCliente": "string",
+  "mensajeTecnico": "string",
+  "codigoError": "string",
+  "modelo": [
+    {
+      "id": 0,
+      "nombre": "string",
+      "codigo": "string",
+      "categoriaId": 0,
+      "capacidad": 0,
+      "ubicacion": "string",
+      "activo": true
+    }
+  ]
+}
