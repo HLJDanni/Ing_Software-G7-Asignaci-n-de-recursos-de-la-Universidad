@@ -16,13 +16,15 @@ namespace Proyecto.Servicios.Recursos.Services
         private string mensajeError;
         private bool tieneErrores;
         private DataTable resultado;
+        private int valorEntero;
 
         public ConexíonBD()
         {
-            this.cadenaConexion = $"Server=localhost;Database=PruebaTecnica;Trusted_Connection=True;TrustServerCertificate=True;";
+            this.cadenaConexion = $"workstation id=UniReserve.mssql.somee.com;packet size=4096;user id=Danni1204_SQLLogin_1;pwd=oo495l73uv;data source=UniReserve.mssql.somee.com;persist security info=False;initial catalog=UniReserve;TrustServerCertificate=True";
             this.mensajeError = string.Empty;
             this.tieneErrores = false;
             this.resultado = new DataTable();
+            this.valorEntero = 0;
         }
 
         [Obsolete]
@@ -64,7 +66,7 @@ namespace Proyecto.Servicios.Recursos.Services
         }
 
         [Obsolete]
-        public void EjecutarSP(string nombre, Dictionary<string, object> parametros)
+        public void EjecutarSP(string nombre, Dictionary<string, object>? parametros)
         {
             try
             {
@@ -93,6 +95,48 @@ namespace Proyecto.Servicios.Recursos.Services
                 this.mensajeError = ex.Message;
             }
         }
+
+        [Obsolete]
+        public void EjecutarSPRetornaEntero(string nombre, Dictionary<string, object>? parametros, string nombreVariable)
+        {
+            try
+            {
+                using (SqlConnection conexion = new SqlConnection(this.cadenaConexion))
+                {
+                    using (SqlCommand comando = new SqlCommand(nombre, conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        if (parametros != null)
+                        {
+                            foreach (var param in parametros)
+                            {
+                                comando.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
+                            }
+                        }
+
+                        conexion.Open();
+                        SqlParameter idParam = new SqlParameter($"@{nombreVariable}", SqlDbType.Int)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+
+                        comando.Parameters.Add(idParam);
+
+                        comando.ExecuteNonQuery();
+
+                        this.valorEntero = (int)comando.Parameters[$"@{nombreVariable}"].Value;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this.tieneErrores = true;
+                this.mensajeError = ex.Message;
+            }
+        }
+
+        public int ObtenerValorEntero() => this.valorEntero;
 
         public bool ExisteErrores() => this.tieneErrores;
 

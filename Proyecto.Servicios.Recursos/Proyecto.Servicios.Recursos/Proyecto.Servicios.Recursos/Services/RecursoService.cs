@@ -2,10 +2,11 @@
 // Copyright (c) AUREA. All rights reserved.
 // </copyright>
 
-using System.Data;
 using Proyecto.Servicios.Recursos.Interfaces;
 using Proyecto.Servicios.Recursos.Models;
 using Proyecto.Servicios.Recursos.Models.Catalogo;
+using Proyecto.Servicios.Recursos.Models.Recursos;
+using System.Data;
 
 namespace Proyecto.Servicios.Recursos.Services
 {
@@ -29,7 +30,7 @@ namespace Proyecto.Servicios.Recursos.Services
             try
             {
                 DataTable dt = new();
-                this.conexion.EjecutarSPRetornaTabla("NombreSP", null);
+                this.conexion.EjecutarSPRetornaTabla("sp_ListarRecursos", null);
 
                 if (this.conexion.ExisteErrores())
                 {
@@ -67,5 +68,60 @@ namespace Proyecto.Servicios.Recursos.Services
 
             return respuesta;
         }
+
+        [Obsolete]
+        public RespuestaMensaje<List<ConsultarDisponibilidadRecursoResponse>> ConsultarDisponibilidadRecurso(ConsultarDisponibilidadRecursoRequest solicitud)
+        {
+            RespuestaMensaje<List<ConsultarDisponibilidadRecursoResponse>> respuesta = new();
+
+            try
+            {
+                Dictionary<string, object> parametros = new();
+                parametros.Add("FechaDesde", solicitud.FechaDesde);
+                parametros.Add("RecursoId", solicitud.RecursoId);
+                parametros.Add("FechaHasta", solicitud.FechaHasta);
+
+                DataTable dt = new();
+                this.conexion.EjecutarSPRetornaTabla("sp_ConsultarDisponibilidadRecurso", parametros);
+
+                if (this.conexion.ExisteErrores())
+                {
+                    respuesta.OcurrioError = true;
+                    respuesta.CodigoError = "999";
+                    respuesta.MensajeCliente = "Ha ocurrido un error al consultar disponibilidad de recurso.";
+                    respuesta.MensajeTecnico = $"Metodo: {nameof(this.ConsultarDisponibilidadRecurso)} Excepción:{this.conexion.ObtenerErrorMensaje()}";
+                    return respuesta;
+                }
+
+                if (dt?.Rows.Count > 0)
+                {
+                    respuesta.Modelo = new();
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        ConsultarDisponibilidadRecursoResponse nuevo = new();
+                        nuevo.Id = dr?["Id"] == DBNull.Value ? 0 : Convert.ToInt32(dr?["Id"] ?? 0);
+                        nuevo.Estado = dr?["Estado"] == DBNull.Value ? string.Empty : dr?["Estado"].ToString() ?? string.Empty;
+                        nuevo.CursoId = dr?["CursoId"] == DBNull.Value ? 0 : Convert.ToInt32(dr?["CursoId"] ?? 0);
+                        nuevo.FechaFin = dr?["FechaFin"] == DBNull.Value ? default(DateTime) : Convert.ToDateTime(dr?["FechaFin"] ?? default(DateTime));
+                        nuevo.NombreCatedratico = dr?["NombreCatedratico"] == DBNull.Value ? string.Empty : dr?["NombreCatedratico"].ToString() ?? string.Empty;
+                        nuevo.CodigoCurso = dr?["CodigoCurso"] == DBNull.Value ? string.Empty : dr?["CodigoCurso"].ToString() ?? string.Empty;
+                        nuevo.CatedraticoId = dr?["CatedraticoId"] == DBNull.Value ? 0 : Convert.ToInt32(dr?["CatedraticoId"] ?? 0);
+                        nuevo.FechaInicio = dr?["FechaInicio"] == DBNull.Value ? default(DateTime) : Convert.ToDateTime(dr?["FechaInicio"] ?? default(DateTime));
+                        nuevo.Motivo = dr?["Motivo"] == DBNull.Value ? string.Empty : dr?["Motivo"].ToString() ?? string.Empty;
+                        respuesta.Modelo.Add(nuevo);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                respuesta.CodigoError = "999";
+                respuesta.MensajeCliente = $"Ha ocurrido un error al consultar disponibilidad de recurso..";
+                respuesta.MensajeTecnico = $"Metodo: {nameof(this.ConsultarDisponibilidadRecurso)} Excepción:{ex.ToString()}";
+                respuesta.OcurrioError = true;
+            }
+
+            return respuesta;
+        }
+
     }
 }

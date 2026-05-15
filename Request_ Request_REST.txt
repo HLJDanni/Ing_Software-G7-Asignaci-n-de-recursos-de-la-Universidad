@@ -15,6 +15,94 @@ Response
     "token": "string"
   }
 }
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+POST https://localhost:7045/api/Reservacion/CancelarReservacion
+Request
+{
+  "idReserva": 0,
+  "idCatedratico": 0
+}
+
+Response
+{
+  "ocurrioError": true,
+  "mensajeCliente": "string",
+  "mensajeTecnico": "string",
+  "codigoError": "string",
+  "modelo": {
+    "cancelacionExitosa": true
+  }
+}
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+POST https://localhost:7045/api/Reservacion/CompletarReservasVencidas
+Response
+{
+  "ocurrioError": true,
+  "mensajeCliente": "string",
+  "mensajeTecnico": "string",
+  "codigoError": "string",
+  "modelo": {
+    "reservasCompletadas": true
+  }
+}
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+POST https://localhost:7045/api/Recursos/ConsultarDisponibilidadRecurso
+Request
+{
+  "recursoId": 0,
+  "fechaDesde": "2026-05-14T05:29:25.294Z",
+  "fechaHasta": "2026-05-14T05:29:25.294Z"
+}
+
+Response
+{
+  "ocurrioError": true,
+  "mensajeCliente": "string",
+  "mensajeTecnico": "string",
+  "codigoError": "string",
+  "modelo": [
+    {
+      "id": 0,
+      "fechaInicio": "2026-05-14T05:29:27.899Z",
+      "fechaFin": "2026-05-14T05:29:27.899Z",
+      "estado": "string",
+      "catedraticoId": 0,
+      "nombreCatedratico": "string",
+      "motivo": "string",
+      "cursoId": 0,
+      "codigoCurso": "string"
+    }
+  ]
+}
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+POST https://localhost:7045/api/Reservacion/CrearReservacion
+Request
+{
+  "recursoId": 0,
+  "catedraticoId": 0,
+  "fechaInicio": "2026-05-14T05:55:50.408Z",
+  "fechaFin": "2026-05-14T05:55:50.408Z",
+  "motivoId": 0,
+  "cursoId": 0
+}
+
+Response
+{
+  "ocurrioError": true,
+  "mensajeCliente": "string",
+  "mensajeTecnico": "string",
+  "codigoError": "string",
+  "modelo": {
+    "reservaId": 0
+  }
+}
+-----------------------------------------Pendiente BD-------------------------------------------------------
+
 
 GET https://localhost:7045/api/Catalogos/Catedraticos
 Response
