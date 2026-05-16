@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Proyecto.Servicios.Recursos.Models;
 using Proyecto.Servicios.Recursos.Models.Cancelacion;
 using Proyecto.Servicios.Recursos.Models.Reservacion;
@@ -6,6 +7,7 @@ using Proyecto.Servicios.Recursos.Services;
 
 namespace Proyecto.Servicios.Recursos.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ReservacionController : ControllerBase

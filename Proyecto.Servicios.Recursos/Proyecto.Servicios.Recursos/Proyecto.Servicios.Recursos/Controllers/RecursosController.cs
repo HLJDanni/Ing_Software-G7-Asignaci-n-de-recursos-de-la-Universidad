@@ -11,6 +11,7 @@ using Proyecto.Servicios.Recursos.Services;
 
 namespace Proyecto.Servicios.Recursos.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class RecursosController : ControllerBase

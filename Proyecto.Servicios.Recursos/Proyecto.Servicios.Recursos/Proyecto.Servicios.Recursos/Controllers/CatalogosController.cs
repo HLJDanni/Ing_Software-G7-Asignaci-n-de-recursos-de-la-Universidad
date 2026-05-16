@@ -7,7 +7,7 @@ using Proyecto.Servicios.Recursos.Services;
 
 namespace Proyecto.Servicios.Recursos.Controllers
 {
-    // [Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class CatalogosController : ControllerBase
