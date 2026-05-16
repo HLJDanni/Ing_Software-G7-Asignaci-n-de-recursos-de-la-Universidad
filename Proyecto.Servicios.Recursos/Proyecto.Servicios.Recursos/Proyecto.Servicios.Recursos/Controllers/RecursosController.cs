@@ -15,11 +15,9 @@ namespace Proyecto.Servicios.Recursos.Controllers
     [Route("api/[controller]")]
     public class RecursosController : ControllerBase
     {
-
         [HttpPost]
         [Route("ConsultarDisponibilidadRecurso")]
         [ProducesResponseType(typeof(RespuestaMensaje<List<ConsultarDisponibilidadRecursoResponse>>), StatusCodes.Status200OK)]
-        [Obsolete]
         public IActionResult CancelarReservacion(ConsultarDisponibilidadRecursoRequest solicitud)
         {
             RespuestaMensaje<List<ConsultarDisponibilidadRecursoResponse>> respuesta = new();

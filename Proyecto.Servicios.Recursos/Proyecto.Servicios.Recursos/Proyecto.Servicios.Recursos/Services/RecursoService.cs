@@ -2,15 +2,14 @@
 // Copyright (c) AUREA. All rights reserved.
 // </copyright>
 
-using Proyecto.Servicios.Recursos.Interfaces;
-using Proyecto.Servicios.Recursos.Models;
-using Proyecto.Servicios.Recursos.Models.Catalogo;
-using Proyecto.Servicios.Recursos.Models.Recursos;
 using System.Data;
+using Proyecto.Servicios.Recursos.Models;
+using Proyecto.Servicios.Recursos.Models.Recursos;
+using Proyecto.Servicios.Recursos.Models.Reservacion;
 
 namespace Proyecto.Servicios.Recursos.Services
 {
-    public class RecursoService : ICatalogo<Recurso>
+    public class RecursoService
     {
         private readonly ConexíonBD conexion;
 
@@ -22,15 +21,31 @@ namespace Proyecto.Servicios.Recursos.Services
             this.conexion = new();
         }
 
-        [Obsolete]
-        public RespuestaMensaje<List<Recurso>> ObtenerCatalogo()
+        public RespuestaMensaje<List<RecursoResponse>> ObtenerCatalogo(ListarRecursosRequest solicitud)
         {
-            RespuestaMensaje<List<Recurso>> respuesta = new();
+            RespuestaMensaje<List<RecursoResponse>> respuesta = new();
 
             try
             {
+                Dictionary<string, object> parametros = new();
+                parametros.Add("SoloActivos", solicitud.SoloActivos);
+                if (!string.IsNullOrEmpty(solicitud.Ubicacion))
+                {
+                    parametros.Add("Ubicacion", solicitud.Ubicacion);
+                }
+
+                if (solicitud.CategoriaId != null)
+                {
+                    parametros.Add("CategoriaId", solicitud.CategoriaId);
+                }
+
+                if (solicitud.CapacidadMinima != null)
+                {
+                    parametros.Add("CapacidadMinima", solicitud.CapacidadMinima);
+                }
+
                 DataTable dt = new();
-                this.conexion.EjecutarSPRetornaTabla("sp_ListarRecursos", null);
+                this.conexion.EjecutarSPRetornaTabla(SPs.ListarRecursos, null);
 
                 if (this.conexion.ExisteErrores())
                 {
@@ -46,11 +61,12 @@ namespace Proyecto.Servicios.Recursos.Services
                     respuesta.Modelo = new();
                     foreach (DataRow dr in dt.Rows)
                     {
-                        Recurso nuevo = new();
+                        RecursoResponse nuevo = new();
                         nuevo.Id = dr?["Id"] == DBNull.Value ? 0 : Convert.ToInt32(dr?["Id"] ?? 0);
                         nuevo.Nombre = dr?["Nombre"] == DBNull.Value ? string.Empty : dr?["Nombre"].ToString() ?? string.Empty;
                         nuevo.CategoriaId = dr?["CategoriaId"] == DBNull.Value ? 0 : Convert.ToInt32(dr?["CategoriaId"] ?? 0);
                         nuevo.Codigo = dr?["Codigo"] == DBNull.Value ? string.Empty : dr?["Codigo"].ToString() ?? string.Empty;
+                        nuevo.NombreCategoria = dr?["NombreCategoria"] == DBNull.Value ? string.Empty : dr?["NombreCategoria"].ToString() ?? string.Empty;
                         nuevo.Capacidad = dr?["Capacidad"] == DBNull.Value ? 0 : Convert.ToInt32(dr?["Capacidad"] ?? 0);
                         nuevo.Ubicacion = dr?["Ubicacion"] == DBNull.Value ? string.Empty : dr?["Ubicacion"].ToString() ?? string.Empty;
                         nuevo.Activo = dr?["Activo"] == DBNull.Value ? false : Convert.ToBoolean(dr?["Activo"] ?? false);
@@ -69,7 +85,6 @@ namespace Proyecto.Servicios.Recursos.Services
             return respuesta;
         }
 
-        [Obsolete]
         public RespuestaMensaje<List<ConsultarDisponibilidadRecursoResponse>> ConsultarDisponibilidadRecurso(ConsultarDisponibilidadRecursoRequest solicitud)
         {
             RespuestaMensaje<List<ConsultarDisponibilidadRecursoResponse>> respuesta = new();
@@ -82,7 +97,7 @@ namespace Proyecto.Servicios.Recursos.Services
                 parametros.Add("FechaHasta", solicitud.FechaHasta);
 
                 DataTable dt = new();
-                this.conexion.EjecutarSPRetornaTabla("sp_ConsultarDisponibilidadRecurso", parametros);
+                this.conexion.EjecutarSPRetornaTabla(SPs.ConsultarDisponibilidadRecurso, parametros);
 
                 if (this.conexion.ExisteErrores())
                 {
@@ -122,6 +137,5 @@ namespace Proyecto.Servicios.Recursos.Services
 
             return respuesta;
         }
-
     }
 }

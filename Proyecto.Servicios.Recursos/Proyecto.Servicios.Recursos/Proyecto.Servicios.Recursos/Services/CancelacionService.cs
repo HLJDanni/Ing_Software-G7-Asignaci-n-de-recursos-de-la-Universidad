@@ -21,7 +21,6 @@ namespace Proyecto.Servicios.Recursos.Services
             this.conexion = new();
         }
 
-        [Obsolete]
         public RespuestaMensaje<CancelarReservacionResponse> CancelarReserva(CancelarReservacionRequest solicitud)
         {
             RespuestaMensaje<CancelarReservacionResponse> respuesta = new();
@@ -33,7 +32,7 @@ namespace Proyecto.Servicios.Recursos.Services
                 parametros.Add("CatedraticoId", solicitud.IdCatedratico);
 
                 DataTable dt = new();
-                this.conexion.EjecutarSP("sp_CancelarReserva", parametros);
+                this.conexion.EjecutarSP(SPs.CancelarReserva, parametros);
 
                 if (this.conexion.ExisteErrores())
                 {

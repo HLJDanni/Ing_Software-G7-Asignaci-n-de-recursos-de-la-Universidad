@@ -9,6 +9,8 @@ namespace Proyecto.Servicios.Recursos.Services;
 
 public class LoginServices
 {
+    private readonly ConexíonBD conexion;
+
     /// <summary>
     /// Servicio de Jwt
     /// </summary>
@@ -21,6 +23,7 @@ public class LoginServices
     public LoginServices(JwtService jwtService)
     {
         this.jwtService = jwtService;
+        this.conexion = new();
     }
 
     public RespuestaMensaje<LoginResponse> Login(LoginRequest solicitud)
@@ -49,15 +52,85 @@ public class LoginServices
             LoginResponse respuestaToken = new();
             respuestaToken.Token = token;
             respuesta.Modelo = respuestaToken;
+            this.AgregarLoginExitoso(1); // Cuando exista login se cambia por id de login
+
             return respuesta;
         }
         else
         {
+            this.RegistrarLoginFallido(1); // Cuando exista login se cambia por id de login
+
             respuesta = this.GenerarMensajeError(
                    "Usuario o contraseña incorrectos",
                    "Usuario o contraseña incorrectos");
             return respuesta;
         }
+    }
+
+    private RespuestaMensaje<bool> AgregarLoginExitoso(int catedraticoId)
+    {
+        RespuestaMensaje<bool> respuesta = new();
+
+        try
+        {
+            Dictionary<string, object> parametros = new();
+            parametros.Add("CatedraticoId", catedraticoId);
+            this.conexion.EjecutarSP(SPs.RegistrarLoginExitoso, parametros);
+
+            if (this.conexion.ExisteErrores())
+            {
+                respuesta.OcurrioError = true;
+                respuesta.CodigoError = "999";
+                respuesta.MensajeCliente = "Ha ocurrido un error al crear una reservación.";
+                respuesta.MensajeTecnico = $"Metodo: {nameof(this.AgregarLoginExitoso)} Excepción: {this.conexion.ObtenerErrorMensaje()}";
+                return respuesta;
+            }
+
+            respuesta.Modelo = new();
+            respuesta.Modelo = true;
+        }
+        catch (Exception ex)
+        {
+            respuesta.CodigoError = "999";
+            respuesta.MensajeCliente = $"Ha ocurrido un error al obtener el catalogo.";
+            respuesta.MensajeTecnico = $"Metodo: {nameof(this.AgregarLoginExitoso)} Excepción:{ex.ToString()}";
+            respuesta.OcurrioError = true;
+        }
+
+        return respuesta;
+    }
+
+    private RespuestaMensaje<bool> RegistrarLoginFallido(int catedraticoId)
+    {
+        RespuestaMensaje<bool> respuesta = new();
+
+        try
+        {
+            Dictionary<string, object> parametros = new();
+            parametros.Add("CatedraticoId", catedraticoId);
+            this.conexion.EjecutarSP(SPs.RegistrarLoginFallido, parametros);
+
+            if (this.conexion.ExisteErrores())
+            {
+                respuesta.OcurrioError = true;
+                respuesta.CodigoError = "999";
+                respuesta.MensajeCliente = "Ha ocurrido un error al crear una reservación.";
+                respuesta.MensajeTecnico = $"Metodo: {nameof(this.RegistrarLoginFallido)} Excepción: {this.conexion.ObtenerErrorMensaje()}";
+                return respuesta;
+            }
+
+            respuesta.Modelo = new();
+            respuesta.Modelo = true;
+        }
+        catch (Exception ex)
+        {
+            respuesta.CodigoError = "999";
+            respuesta.MensajeCliente = $"Ha ocurrido un error al obtener el catalogo.";
+            respuesta.MensajeTecnico = $"Metodo: {nameof(this.RegistrarLoginFallido)} Excepción:{ex.ToString()}";
+            respuesta.OcurrioError = true;
+        }
+
+        return respuesta;
     }
 
     private RespuestaMensaje<LoginResponse> GenerarMensajeError(string mensajeCliente, string mensajeTecnico, string codigo = "999")

@@ -8,3 +8,4 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1652:Enable XML documentation output", Justification = "<pendiente>", Scope = "namespace", Target = "~N:Proyecto.Servicios.Recursos.Models")]
 [assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1633:File must have header", Justification = "<pendiente>")]
 [assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1652:Enable XML documentation output", Justification = "<pendiente>")]
+[assembly: SuppressMessage("Style", "IDE0003:Quitar cualificación", Justification = "<pendiente>", Scope = "member", Target = "~M:Proyecto.Servicios.Recursos.Services.ReservacionService.ListarHistorialReservas(Proyecto.Servicios.Recursos.Models.Reservacion.ListarHistorialReservasRequest)~Proyecto.Servicios.Recursos.Models.RespuestaMensaje{System.Collections.Generic.List{Proyecto.Servicios.Recursos.Models.Reservacion.HistorialReservaItemResponse}}")]

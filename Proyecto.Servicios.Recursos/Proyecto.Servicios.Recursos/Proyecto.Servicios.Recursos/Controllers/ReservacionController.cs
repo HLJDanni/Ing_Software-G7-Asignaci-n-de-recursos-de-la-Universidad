@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Proyecto.Servicios.Recursos.Interfaces;
+﻿using Microsoft.AspNetCore.Mvc;
 using Proyecto.Servicios.Recursos.Models;
 using Proyecto.Servicios.Recursos.Models.Cancelacion;
-using Proyecto.Servicios.Recursos.Models.Catalogo;
 using Proyecto.Servicios.Recursos.Models.Reservacion;
 using Proyecto.Servicios.Recursos.Services;
 
@@ -16,7 +13,6 @@ namespace Proyecto.Servicios.Recursos.Controllers
         [HttpPost]
         [Route("CancelarReservacion")]
         [ProducesResponseType(typeof(RespuestaMensaje<CancelarReservacionResponse>), StatusCodes.Status200OK)]
-        [Obsolete]
         public IActionResult CancelarReservacion(CancelarReservacionRequest solicitud)
         {
             RespuestaMensaje<CancelarReservacionResponse> respuesta = new();
@@ -40,7 +36,6 @@ namespace Proyecto.Servicios.Recursos.Controllers
         [HttpPost]
         [Route("CompletarReservasVencidas")]
         [ProducesResponseType(typeof(RespuestaMensaje<CompletarReservacionResponse>), StatusCodes.Status200OK)]
-        [Obsolete]
         public IActionResult CompletarReservasVencidas()
         {
             RespuestaMensaje<CompletarReservacionResponse> respuesta = new();
@@ -64,7 +59,6 @@ namespace Proyecto.Servicios.Recursos.Controllers
         [HttpPost]
         [Route("CrearReservacion")]
         [ProducesResponseType(typeof(RespuestaMensaje<CrearReservaResponse>), StatusCodes.Status200OK)]
-        [Obsolete]
         public IActionResult CrearReservacion(CrearReservaRequest solicitud)
         {
             RespuestaMensaje<CrearReservaResponse> respuesta = new();
@@ -79,6 +73,29 @@ namespace Proyecto.Servicios.Recursos.Controllers
                 respuesta.CodigoError = "999";
                 respuesta.MensajeCliente = $"Ha ocurrido un error  al crear una reservación.";
                 respuesta.MensajeTecnico = $"Metodo: {nameof(this.CompletarReservasVencidas)} Excepción:{ex.ToString()}";
+                respuesta.OcurrioError = true;
+            }
+
+            return this.Ok(respuesta);
+        }
+
+        [HttpPost]
+        [Route("ListarHistorialReservas")]
+        [ProducesResponseType(typeof(RespuestaMensaje<List<HistorialReservaItemResponse>>), StatusCodes.Status200OK)]
+        public IActionResult ListarHistorialReservas(ListarHistorialReservasRequest solicitud)
+        {
+            RespuestaMensaje<List<HistorialReservaItemResponse>> respuesta = new();
+
+            try
+            {
+                ReservacionService servicio = new();
+                respuesta = servicio.ListarHistorialReservas(solicitud);
+            }
+            catch (Exception ex)
+            {
+                respuesta.CodigoError = "999";
+                respuesta.MensajeCliente = $"Ha ocurrido un error  al crear una reservación.";
+                respuesta.MensajeTecnico = $"Metodo: {nameof(this.ListarHistorialReservas)} Excepción:{ex.ToString()}";
                 respuesta.OcurrioError = true;
             }
 

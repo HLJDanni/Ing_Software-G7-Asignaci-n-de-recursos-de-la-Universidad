@@ -27,13 +27,14 @@ namespace Proyecto.Servicios.Recursos.Services
             this.valorEntero = 0;
         }
 
-        [Obsolete]
         public void EjecutarSPRetornaTabla(string nombre, Dictionary<string, object>? parametros)
         {
             this.resultado = new DataTable();
 
             try
             {
+#pragma warning disable IDE0090 // Usar "new(...)"
+#pragma warning disable CS0618 // El tipo o el miembro están obsoletos
                 using (SqlConnection conexion = new SqlConnection(this.cadenaConexion))
                 {
                     using (SqlCommand comando = new SqlCommand(nombre, conexion))
@@ -65,11 +66,12 @@ namespace Proyecto.Servicios.Recursos.Services
             }
         }
 
-        [Obsolete]
         public void EjecutarSP(string nombre, Dictionary<string, object>? parametros)
         {
             try
             {
+#pragma warning disable IDE0090 // Usar "new(...)"
+#pragma warning disable CS0618 // El tipo o el miembro están obsoletos
                 using (SqlConnection conexion = new SqlConnection(this.cadenaConexion))
                 {
                     using (SqlCommand comando = new SqlCommand(nombre, conexion))
@@ -96,11 +98,12 @@ namespace Proyecto.Servicios.Recursos.Services
             }
         }
 
-        [Obsolete]
         public void EjecutarSPRetornaEntero(string nombre, Dictionary<string, object>? parametros, string nombreVariable)
         {
             try
             {
+#pragma warning disable IDE0090 // Usar "new(...)"
+#pragma warning disable CS0618 // El tipo o el miembro están obsoletos
                 using (SqlConnection conexion = new SqlConnection(this.cadenaConexion))
                 {
                     using (SqlCommand comando = new SqlCommand(nombre, conexion))
@@ -128,6 +131,8 @@ namespace Proyecto.Servicios.Recursos.Services
                         this.valorEntero = (int)comando.Parameters[$"@{nombreVariable}"].Value;
                     }
                 }
+#pragma warning restore CS0618 // El tipo o el miembro están obsoletos
+#pragma warning restore IDE0090 // Usar "new(...)"
             }
             catch (Exception ex)
             {
