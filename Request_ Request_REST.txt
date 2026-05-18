@@ -1,0 +1,194 @@
+POST https://localhost:7045/api/Login
+Request
+{
+  "user": "string",
+  "password": "string"
+}
+
+Response
+{
+  "ocurrioError": true,
+  "mensajeCliente": "string",
+  "mensajeTecnico": "string",
+  "codigoError": "string",
+  "modelo": {
+    "token": "string"
+  }
+}
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+POST https://localhost:7045/api/Reservacion/CancelarReservacion
+Request
+{
+  "idReserva": 0,
+  "idCatedratico": 0
+}
+
+Response
+{
+  "ocurrioError": true,
+  "mensajeCliente": "string",
+  "mensajeTecnico": "string",
+  "codigoError": "string",
+  "modelo": {
+    "cancelacionExitosa": true
+  }
+}
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+POST https://localhost:7045/api/Reservacion/CompletarReservasVencidas
+Response
+{
+  "ocurrioError": true,
+  "mensajeCliente": "string",
+  "mensajeTecnico": "string",
+  "codigoError": "string",
+  "modelo": {
+    "reservasCompletadas": true
+  }
+}
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+POST https://localhost:7045/api/Recursos/ConsultarDisponibilidadRecurso
+Request
+{
+  "recursoId": 0,
+  "fechaDesde": "2026-05-14T05:29:25.294Z",
+  "fechaHasta": "2026-05-14T05:29:25.294Z"
+}
+
+Response
+{
+  "ocurrioError": true,
+  "mensajeCliente": "string",
+  "mensajeTecnico": "string",
+  "codigoError": "string",
+  "modelo": [
+    {
+      "id": 0,
+      "fechaInicio": "2026-05-14T05:29:27.899Z",
+      "fechaFin": "2026-05-14T05:29:27.899Z",
+      "estado": "string",
+      "catedraticoId": 0,
+      "nombreCatedratico": "string",
+      "motivo": "string",
+      "cursoId": 0,
+      "codigoCurso": "string"
+    }
+  ]
+}
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+POST https://localhost:7045/api/Reservacion/CrearReservacion
+Request
+{
+  "recursoId": 0,
+  "catedraticoId": 0,
+  "fechaInicio": "2026-05-14T05:55:50.408Z",
+  "fechaFin": "2026-05-14T05:55:50.408Z",
+  "motivoId": 0,
+  "cursoId": 0
+}
+
+Response
+{
+  "ocurrioError": true,
+  "mensajeCliente": "string",
+  "mensajeTecnico": "string",
+  "codigoError": "string",
+  "modelo": {
+    "reservaId": 0
+  }
+}
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+POST https://localhost:7045/api/Reservacion/ListarHistorialReservas
+Request
+{
+  "catedraticoId": 0,
+  "estado": "string",
+  "fechaDesde": "2026-05-16T02:17:11.936Z",
+  "fechaHasta": "2026-05-16T02:17:11.936Z",
+  "pagina": 0,
+  "tamanoPagina": 0
+}
+
+Response
+{
+  "ocurrioError": true,
+  "mensajeCliente": "string",
+  "mensajeTecnico": "string",
+  "codigoError": "string",
+  "modelo": [
+    {
+      "id": 0,
+      "recursoId": 0,
+      "nombreRecurso": "string",
+      "codigoRecurso": "string",
+      "fechaInicio": "2026-05-16T02:17:13.964Z",
+      "fechaFin": "2026-05-16T02:17:13.964Z",
+      "estado": "string",
+      "motivoId": 0,
+      "motivo": "string",
+      "cursoId": 0,
+      "codigoCurso": "string",
+      "nombreCurso": "string",
+      "fechaCreacion": "2026-05-16T02:17:13.964Z"
+    }
+  ]
+}
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+POST https://localhost:7045/api/Catalogos/ListarRecursos
+Request
+{
+  "categoriaId": 0,
+  "capacidadMinima": 0,
+  "ubicacion": "string",
+  "soloActivos": true
+}
+Response
+{
+  "ocurrioError": true,
+  "mensajeCliente": "string",
+  "mensajeTecnico": "string",
+  "codigoError": "string",
+  "modelo": [
+    {
+      "id": 0,
+      "nombre": "string",
+      "codigo": "string",
+      "categoriaId": 0,
+      "capacidad": 0,
+      "ubicacion": "string",
+      "activo": true
+    }
+  ]
+}
+
+POST https://localhost:7045/api/Catalogos/ObtenerCatedraticoPorUsuario
+Request
+{
+  "nombreUsuario": "string"
+}
+
+Response
+{
+  "ocurrioError": true,
+  "mensajeCliente": "string",
+  "mensajeTecnico": "string",
+  "codigoError": "string",
+  "modelo": [
+    {
+      "id": 0,
+      "nombreUsuario": "string",
+      "hashContrasena": "string",
+      "nombreCompleto": "string",
+      "correoInstitucional": "string",
+      "fechaUltimoAcceso": "2026-05-16T02:58:40.271Z",
+      "intentosFallidos": 0,
+      "bloqueadoHasta": "2026-05-16T02:58:40.271Z",
+      "activo": true
+    }
+  ]
+}
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
