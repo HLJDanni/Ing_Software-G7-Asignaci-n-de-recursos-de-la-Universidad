@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Proyecto.Servicios.Recursos.Models;
+using Proyecto.Servicios.Recursos.Models.Catalogo;
 using Proyecto.Servicios.Recursos.Models.Login;
+using Proyecto.Servicios.Recursos.Models.Logs;
 using Proyecto.Servicios.Recursos.Services;
 
 namespace Proyecto.Servicios.Recursos.Controllers
