@@ -2,10 +2,9 @@
 // Copyright (c) AUREA. All rights reserved.
 // </copyright>
 
+using System.Data;
 using Proyecto.Servicios.Recursos.Models;
 using Proyecto.Servicios.Recursos.Models.Catalogo;
-using Proyecto.Servicios.Recursos.Models.Logs;
-using System.Data;
 
 namespace Proyecto.Servicios.Recursos.Services
 {
