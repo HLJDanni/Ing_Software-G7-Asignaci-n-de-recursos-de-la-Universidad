@@ -56,6 +56,8 @@ namespace Proyecto.Servicios.Recursos.Services
                     return respuesta;
                 }
 
+                dt = this.conexion.ObtenerResultadoSP();
+
                 if (dt?.Rows.Count > 0)
                 {
                     respuesta.Modelo = new();

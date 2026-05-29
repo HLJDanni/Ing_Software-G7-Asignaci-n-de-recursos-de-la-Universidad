@@ -74,7 +74,7 @@ namespace Proyecto.Servicios.Recursos.Controllers
             {
                 respuesta.CodigoError = "999";
                 respuesta.MensajeCliente = $"Ha ocurrido un error al obtener el catalogo.";
-                respuesta.MensajeTecnico = $"Metodo: {nameof(this.ObtenerCatedraticoPorUsuario)} Excepción:{ex.ToString()}";
+                respuesta.MensajeTecnico = $"Metodo: {nameof(this.ObtenerCatedraticos)} Excepción:{ex.ToString()}";
                 respuesta.OcurrioError = true;
             }
 
@@ -84,7 +84,7 @@ namespace Proyecto.Servicios.Recursos.Controllers
         [HttpPost]
         [Route("ObtenerCategoria")]
         [ProducesResponseType(typeof(RespuestaMensaje<List<CategoriaResponse>>), StatusCodes.Status200OK)]
-        public IActionResult ObtenerCategoria(ListarCatedraticosRequest solicitud)
+        public IActionResult ObtenerCategoria()
         {
             RespuestaMensaje<List<CategoriaResponse>> respuesta = new();
             try
@@ -96,7 +96,7 @@ namespace Proyecto.Servicios.Recursos.Controllers
             {
                 respuesta.CodigoError = "999";
                 respuesta.MensajeCliente = $"Ha ocurrido un error al obtener el catalogo.";
-                respuesta.MensajeTecnico = $"Metodo: {nameof(this.ObtenerCatedraticoPorUsuario)} Excepción:{ex.ToString()}";
+                respuesta.MensajeTecnico = $"Metodo: {nameof(this.ObtenerCategoria)} Excepción:{ex.ToString()}";
                 respuesta.OcurrioError = true;
             }
 
@@ -118,7 +118,7 @@ namespace Proyecto.Servicios.Recursos.Controllers
             {
                 respuesta.CodigoError = "999";
                 respuesta.MensajeCliente = $"Ha ocurrido un error al obtener el catalogo.";
-                respuesta.MensajeTecnico = $"Metodo: {nameof(this.ObtenerCatedraticoPorUsuario)} Excepción:{ex.ToString()}";
+                respuesta.MensajeTecnico = $"Metodo: {nameof(this.ObtenerCursos)} Excepción:{ex.ToString()}";
                 respuesta.OcurrioError = true;
             }
 
