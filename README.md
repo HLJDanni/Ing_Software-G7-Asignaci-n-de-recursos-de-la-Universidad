@@ -108,3 +108,7 @@ El esquema gira en torno a la entidad `Reserva`, que cruza las dimensiones del d
 ## Autores
 
 - Daniel González
+- Jonathan Yos
+- Nelson Lopez
+- Brandon Tij
+![Coverage](https://img.shields.io/badge/Coverage-85%25-brightgreen)
